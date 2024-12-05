@@ -1,0 +1,258 @@
+.meal-plan-section {
+    position: relative;
+    
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.meal-plan-section-menu {
+    width: 100%;
+
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    gap: 1rem;
+
+    color: var(--primary);
+
+    a {
+        padding: 1rem 1.5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        border: 2px solid var(--text);
+        color: var(--text);
+        font-weight: 500;
+        border-radius: 2rem;
+        text-decoration: none;
+    }
+
+    a:hover {
+        background-color: var(--white);
+    }
+}
+
+
+
+.meal-plan-cards {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+    height: 580px;
+    max-height: 580px;
+
+    display: flex;
+    align-items: start;
+    justify-content: start;
+
+    overflow-x: scroll;
+
+    transition: .3s ease;
+    scroll-behavior: smooth;
+
+    scroll-snap-type: mandatory;
+
+    .meal-plan-type {
+        position: relative;
+        width: 100%;
+        min-width: 100%;
+        height: 100%;
+        max-height: 100%;
+
+        overflow-y: auto;
+    }
+
+    .meal-plan-type::-webkit-scrollbar {
+        display: none;
+    }
+
+    .meal-plan-header {
+        position: relative;
+        width: 100%;
+        height: 50%;
+
+        border-radius: 1rem;
+        background-color: var(--primary);
+
+        img {
+            position: absolute;
+            z-index: 0;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .7;
+            border-radius: 1rem;
+        }
+
+        > *:not(.meal-bg) {
+            position: absolute;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: clamp(1rem, 1.7vw, 1.7rem);
+            left: 2rem;
+            top: 1rem;
+            padding: .5rem 1rem;
+            background-color: rgba(255, 255, 255, .3);
+            color: var(--white);
+            border-radius: 1rem;
+        }
+
+        .description {
+            bottom: 1rem;
+            left: 2rem;
+            color: var(--white);
+
+            font-size: 1.3rem;
+
+            .total-for {
+                font-size: clamp(1rem, 3vw, 2.5rem);
+                font-weight: 600;
+                line-height: 2rem;
+            }
+        }
+
+    }
+}
+
+.meal-plan-cards::-webkit-scrollbar {
+    display: none;
+}
+
+.meal-plan-controller {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-left: auto;
+
+    button {
+        outline: none;
+        border: none;
+        width:60px;
+        aspect-ratio: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: var(--white);
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        .left-arrow {
+            transform: rotate(180deg);
+        }
+    }
+
+    button:hover {
+        background-color: rgba(255, 255, 255, .5);
+    }
+}
+
+.meal-plan-header-title {
+    width: 100%;
+    padding: 1rem;
+    padding: .5rem;
+    margin-top: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: var(--white);
+    border-radius: 1rem;
+
+    > * {
+        flex: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-weight: var(--weight-md);
+        font-size: 1.2rem;
+    }
+}
+
+.meal-plans {
+    width: 100%;
+    margin-top: 1rem;
+
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: .7rem;
+    flex-direction: column;
+
+    .meal-card {
+        width: 100%;
+        padding: 1rem;
+        background-color: var(--white);
+        border-radius: 1rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > * {
+            flex: 1;
+        }
+
+        .meal {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1rem;
+
+            font-weight: var(--weight-md);
+
+            .day {
+                width: 30px;
+                aspect-ratio: 1;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: var(--accent);
+                color: var(--white);
+                border-radius: 50%;
+
+            }
+        }
+
+        .meal-price {
+            padding: .5rem 1rem;
+            background-color: var(--text);
+            border-radius: .5rem;
+            color: var(--white);
+            width: min-content !important;
+            max-width: min-content !important;
+            text-wrap: nowrap;
+        }
+
+        .ingredients,
+        .in-plate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+    }
+}
