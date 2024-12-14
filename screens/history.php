@@ -3,81 +3,62 @@
 
         <p>My history</p>
 
-        <button class="delete-button">Delete</button>
-    </div>
-    <div class="history-header">
-        <p>Title</p>
-        <p>Amount</p>
-        <p>Start</p>
-        <p>End</p>
-        <p>Savings</p>
     </div>
 
     <script>
         $(".history-card").click((e) => {
-            console.log('hello')
-            $("#main-section").load("./historycontent.php")
+            let id = e.currentTarget.id;
+            $("#main-section").load(`./historycontent.php?id=${id}`)
         })
     </script>
 
-    <div class="histories">
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Date added</th>
+            <th>Balance</th>
+        </tr>
+        <?php
+        include("../system/config.php");
+        session_start();
+        $userid = $_SESSION["userid"];
+        $s = "select * from schedule
+        join timeline on timeline.schedule_id = schedule.schedule_id
+        where schedule.user_id = $userid
+        order by schedule.schedule_id desc
+        
+        ";
+        $schedules = $conn->query($s);
 
-        <!-- CARDS -->
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
+        if ($schedules->num_rows > 0) {
+            while ($row = $schedules->fetch_assoc()) {
 
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
+        ?>
+                <tr class="history-card" id="<?php echo $row["schedule_id"]; ?>">
+                    <td class="title"><?php echo $row["title"] ?></td>
+                    <td class="amount">P <?php echo $row["amount"] ?></td>
+                    <td class="start"><?php echo $row["date_added"] ?></td>
+                    <td class="saving"><?php echo $row["balance"] ?></td>
+                </tr>
 
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
+        <?php
+            }
+        } else {
+            echo "No schedule history";
+        }
 
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
-
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
-
-        <div class="history-card" id="h1">
-            <p class="title">This is title</p>
-            <p class="amount">P2000</p>
-            <p class="start">November 1, 2024</p>
-            <p class="end">November 5, 2024</p>
-            <p class="saving">P100</p>
-            <input type="checkbox" class="check-delete">
-        </div>
+        ?>
+    </table>
 
 
 
-    </div>
+
+
+    <!-- CARDS -->
 </div>
+</div>
+
+<?php exit(); ?>
+
+<table>

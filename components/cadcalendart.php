@@ -6,6 +6,23 @@ include("../system/config.php");
 
 $userLogId = $_SESSION["userid"] ?? 0;
 
+$s = "select * from schedule where user_id = $userLogId ";
+$schedidr = $conn->query($s);
+$schedid = 0;
+if ($schedidr->num_rows > 0) {
+    $schedid = $schedidr->fetch_assoc()["schedule_id"];
+
+    $s = "
+    UPDATE timeline
+    SET count = DATEDIFF(CURDATE(), date_added) + 1
+    WHERE schedule_id = $schedid;
+    ";
+
+    $conn->query($s);
+}
+
+
+
 $s =
     "
     select * from user 
@@ -17,6 +34,7 @@ $s =
     ";
 
 $result = $conn->query($s);
+
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();

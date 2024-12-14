@@ -37,7 +37,7 @@ if (isset($_POST['signup-button'])) {
             $isEmailTaken = true;
             $accemail = $inputedEmail;
         } else {
-            $s = "insert into user (user_id) values (NULL)";
+            $s = "insert into user (user_id, last_online) values (NULL, now())";
             if ($conn->query($s)) {
                 $s = "select LAST_INSERT_ID() as newUserId";
                 $newuserid = $conn->query($s)->fetch_assoc()['newUserId'];
@@ -107,7 +107,7 @@ if (isset($_POST['signup-button'])) {
         if ($googleidresult->num_rows > 0) {
             $_SESSION["userid"] = $googleidresult->fetch_assoc()["user_id"];
         } else {
-            $s = "insert into user values (NULL, '$userGoogleId')";
+            $s = "insert into user (user_id, google_id, last_online) values (NULL, '$userGoogleId', now())";
             $conn->query($s);
 
             $s = "select LAST_INSERT_ID() as newUserID";

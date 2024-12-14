@@ -41,6 +41,9 @@ if (isset($_POST["login-button"])) {
 
                 $_SESSION["userid"] = $userid;
 
+                $s = "update user set last_online = now() where user_id = $userid";
+                $conn->query($s);
+
                 header("Location: http://localhost/badyetko/screens/home.php?");
             } else {
                 $isIncorrectPassword = true;
@@ -102,7 +105,7 @@ if (isset($_POST["login-button"])) {
         if ($googleidresult->num_rows > 0) {
             $_SESSION["userid"] = $googleidresult->fetch_assoc()["user_id"];
         } else {
-            $s = "insert into user values (NULL, '$userGoogleId')";
+            $s = "insert into user (user_id, google_id, last_online) values (NULL, '$userGoogleId', now())";
             $conn->query($s);
 
             $s = "select LAST_INSERT_ID() as newUserID";

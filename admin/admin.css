@@ -1,0 +1,110 @@
+#logstatus {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    color: rgb(218, 65, 65);
+}
+a {text-decoration: none; }
+
+.admin-nav {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 3rem 5%;
+    background: var(--white);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-logout {
+    padding: .7rem 1rem;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.admin-logo {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    input,
+    button {
+        padding: 1rem;
+        width: 100%;
+        border-radius: 12px;
+        outline: none;
+        border: 2px solid var(--primary);
+    }
+
+    button {
+        background-color: var(--primary);
+        color: var(--white);
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    button:hover {
+        opacity: .9;
+    }
+}
+
+table {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+tr, th, td {
+    border: 1px solid var(--primary);
+    border-collapse: collapse;
+    padding: 1rem;
+}
+
+#users {
+    position: relative;
+    top: 5rem;
+    z-index: 10;
+}
+
+.op {
+    padding: 0;
+}
+
+.deleteuser {
+    width: 100%;
+    padding: 1rem 0;
+    border: none;
+}
+
+.deleteuser:hover {
+    opacity: .7;
+    cursor: pointer;
+}
+
+#search {
+    margin-left: auto;
+    width: 300px;
+    padding: .8rem 1rem;
+}

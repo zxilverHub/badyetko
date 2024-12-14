@@ -1,4 +1,7 @@
 <?php
+
+use Google\Service\AdExchangeBuyerII\Date;
+
 include("../system/config.php");
 session_start();
 date_default_timezone_set('Asia/Manila');
@@ -67,6 +70,23 @@ if (!isset($_SESSION["userid"])) {
             $conn->query($s);
 
             // header("Location: http://localhost/badyetko/screens/home.php");
+        }
+
+        if (isset($_POST["add-reminder-btn"])) {
+
+            if (isset($_POST["remider-amount"]) && isset($_POST["duedate"]) && $_POST["remider-amount"] != "") {
+
+                $r_type = $_POST["reminder-type"];
+                $r_amount = $_POST["remider-amount"];
+                $r_duedate = $_POST["duedate"] ?? Date("F j, Y");
+                $uid = $_SESSION["userid"];
+
+                $s = "insert into reminder values 
+                (null, '$r_type', '$r_duedate', $r_amount, 0, $uid)
+                ;";
+
+                $conn->query($s);
+            }
         }
 
         ?>
@@ -149,7 +169,6 @@ if (!isset($_SESSION["userid"])) {
             })
 
 
-
             let btns = document.querySelectorAll('.nav-btn');
 
             btns.forEach(btn => {
@@ -162,6 +181,12 @@ if (!isset($_SESSION["userid"])) {
                     b.currentTarget.classList.add('active');
                 })
             })
+
+
+            function reminderClose() {
+                event.preventDefault();
+                document.getElementById('remider-dialog').classList.add('none-r');
+            }
         </script>
 
 
@@ -207,6 +232,51 @@ if (!isset($_SESSION["userid"])) {
                 <img src="../assets/icons/close.png" alt="">
             </div>
         </div>
+    </div>
+
+    <div id="remider-dialog" class="none-r">
+        <form class="main-dialog" method="POST" accept="">
+            <div class="types">
+                <p>Reminder type</p>
+                <label for="internet">
+                    <input type="radio" id="internet" name="reminder-type" checked value="Internet bill">
+                    <span>Internet bill</span>
+                </label>
+
+                <label for="electricity">
+                    <input type="radio" id="electricity" name="reminder-type" value="Electricity bill">
+                    <span>Electricity bill</span>
+                </label>
+
+                <label for="water">
+                    <input type="radio" id="water" name="reminder-type" value="Water bill">
+                    <span>Water bill</span>
+                </label>
+
+                <label for="appartment">
+                    <input type="radio" id="appartment" name="reminder-type" value="Apartment">
+                    <span>Apartment</span>
+                </label>
+            </div>
+
+            <div class="info">
+                <label for="remider-amount">
+                    <span>Amount</span>
+                    <input type="number" name="remider-amount" id="remider-amount">
+                </label>
+
+                <label for="duedate">
+                    <span>Due date</span>
+                    <input type="date" name="duedate" id="duedate">
+                </label>
+
+                <input type="submit" name="add-reminder-btn" value="Add reminder">
+            </div>
+            <button onclick="reminderClose()">
+                <img src="../assets/icons/close.png">
+            </button>
+
+        </form>
     </div>
 
 
